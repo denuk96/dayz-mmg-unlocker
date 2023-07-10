@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -11,7 +12,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Unlocker starting...")
+	log.Println("Unlocker starting...")
 
 	kb, err := keybd_event.NewKeyBonding()
 	if err != nil {
@@ -57,7 +58,7 @@ func inputCode(kb keybd_event.KeyBonding, num int) {
 
 	numStr := fmt.Sprintf("%04d", num)
 
-	fmt.Println(numStr)
+	log.Println(numStr)
 
 	for _, ch := range numStr {
 		// Convert the character to a key code
@@ -91,7 +92,7 @@ func clearInput(kb keybd_event.KeyBonding, inputSize int) {
 		if err != nil {
 			panic(err)
 		}
-		sleepRandom(20, 120)
+		sleepRandom(20, 70)
 	}
 }
 
