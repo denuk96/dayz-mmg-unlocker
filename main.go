@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/micmonay/keybd_event"
@@ -16,13 +18,27 @@ func main() {
 		panic(err)
 	}
 
+	startValue, err := defineStart()
+	if err != nil {
+		panic(err)
+	}
+
 	// time for alt + tab
 	time.Sleep(5 * time.Second)
 
-	for i := 0; i <= 9999; i++ {
+	for i := startValue; i <= 9999; i++ {
 		inputCode(kb, i)
 		clearInput(kb, 4)
 	}
+}
+
+func defineStart() (int, error) {
+	valueStr := os.Getenv("DAYZ_OPENER_START")
+	if valueStr == "" {
+		valueStr = "0000"
+	}
+
+	return strconv.Atoi(valueStr)
 }
 
 func inputCode(kb keybd_event.KeyBonding, num int) {
@@ -54,7 +70,7 @@ func inputCode(kb keybd_event.KeyBonding, num int) {
 			panic(err)
 		}
 
-		sleepRandom(50, 200)
+		sleepRandom(130, 250)
 	}
 
 	// Press the Enter key
@@ -64,7 +80,7 @@ func inputCode(kb keybd_event.KeyBonding, num int) {
 		panic(err)
 	}
 
-	sleepRandom(50, 200)
+	sleepRandom(150, 250)
 }
 
 func clearInput(kb keybd_event.KeyBonding, inputSize int) {
@@ -75,7 +91,7 @@ func clearInput(kb keybd_event.KeyBonding, inputSize int) {
 		if err != nil {
 			panic(err)
 		}
-		sleepRandom(40, 150)
+		sleepRandom(20, 120)
 	}
 }
 
