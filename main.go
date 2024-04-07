@@ -30,6 +30,11 @@ func main() {
 	for i := startValue; i <= 9999; i++ {
 		inputCode(kb, i)
 		clearInput(kb, 4)
+
+		if i%30 == 0 {
+			captureScreenshot(kb)
+			log.Printf("Screenshot captured for i: %d\n", i)
+		}
 	}
 }
 
@@ -93,6 +98,15 @@ func clearInput(kb keybd_event.KeyBonding, inputSize int) {
 			panic(err)
 		}
 		sleepRandom(20, 70)
+	}
+}
+
+func captureScreenshot(kb keybd_event.KeyBonding) {
+	kb.SetKeys(keybd_event.VK_F10)
+
+	err := kb.Launching()
+	if err != nil {
+		log.Fatalf("Failed to capture screenshot: %v", err)
 	}
 }
 
